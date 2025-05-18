@@ -1,0 +1,142 @@
+[
+  {
+    "name": "Classic Espresso",
+    "price": 3.50,
+    "description": "A bold and rich espresso made from freshly ground Arabica beans.",
+    "category": "DRINK",
+    "images": ["https://via.placeholder.com/150?text=Espresso"]
+  },
+  {
+    "name": "Cappuccino",
+    "price": 4.25,
+    "description": "Creamy cappuccino with a smooth blend of steamed milk and foam.",
+    "category": "DRINK",
+    "images": ["https://via.placeholder.com/150?text=Cappuccino"]
+  },
+  {
+    "name": "Iced Caramel Latte",
+    "price": 5.75,
+    "description": "Cold brew latte sweetened with caramel syrup and topped with milk.",
+    "category": "DRINK",
+    "images": ["https://via.placeholder.com/150?text=Iced+Caramel+Latte"]
+  },
+  {
+    "name": "Blueberry Muffin",
+    "price": 2.99,
+    "description": "Soft muffin loaded with fresh blueberries and a hint of lemon zest.",
+    "category": "FOOD",
+    "images": ["https://via.placeholder.com/150?text=Blueberry+Muffin"]
+  },
+  {
+    "name": "Avocado Toast",
+    "price": 6.50,
+    "description": "Toasted sourdough topped with smashed avocado, chili flakes, and lime.",
+    "category": "FOOD",
+    "images": ["https://via.placeholder.com/150?text=Avocado+Toast"]
+  },
+  {
+    "name": "Mocha Frappé",
+    "price": 5.95,
+    "description": "Frozen blend of chocolate, coffee, and whipped cream.",
+    "category": "DRINK",
+    "images": ["https://via.placeholder.com/150?text=Mocha+Frappe"]
+  },
+  {
+    "name": "Ham & Cheese Croissant",
+    "price": 4.75,
+    "description": "Buttery croissant filled with smoked ham and melted Swiss cheese.",
+    "category": "FOOD",
+    "images": ["https://via.placeholder.com/150?text=Ham+Cheese+Croissant"]
+  },
+  {
+    "name": "Vanilla Cold Brew",
+    "price": 4.30,
+    "description": "Slow-steeped cold brew with a touch of vanilla and milk.",
+    "category": "DRINK",
+    "images": ["https://via.placeholder.com/150?text=Vanilla+Cold+Brew"]
+  },
+  {
+    "name": "Banana Bread Slice",
+    "price": 2.60,
+    "description": "Moist banana bread baked fresh with walnuts and a hint of cinnamon.",
+    "category": "FOOD",
+    "images": ["https://via.placeholder.com/150?text=Banana+Bread"]
+  },
+  {
+    "name": "Matcha Latte",
+    "price": 4.80,
+    "description": "Creamy green tea latte made with premium matcha powder and milk.",
+    "category": "DRINK",
+    "images": ["https://via.placeholder.com/150?text=Matcha+Latte"]
+  },
+  {
+    "name": "Turkey Bagel Sandwich",
+    "price": 7.99,
+    "description": "Everything bagel with turkey breast, lettuce, tomato, and cream cheese.",
+    "category": "FOOD",
+    "images": ["https://via.placeholder.com/150?text=Turkey+Bagel"]
+  },
+  {
+    "name": "Hot Chocolate",
+    "price": 3.75,
+    "description": "Rich and creamy hot chocolate topped with whipped cream.",
+    "category": "DRINK",
+    "images": ["https://via.placeholder.com/150?text=Hot+Chocolate"]
+  },
+  {
+    "name": "Chocolate Chip Cookie",
+    "price": 1.95,
+    "description": "Soft and chewy cookie loaded with chocolate chips.",
+    "category": "FOOD",
+    "images": ["https://via.placeholder.com/150?text=Chocolate+Chip+Cookie"]
+  },
+  {
+    "name": "Pumpkin Spice Latte",
+    "price": 5.10,
+    "description": "Seasonal latte made with pumpkin spice and steamed milk.",
+    "category": "DRINK",
+    "images": ["https://via.placeholder.com/150?text=Pumpkin+Spice+Latte"]
+  },
+  {
+    "name": "Spinach & Feta Wrap",
+    "price": 6.20,
+    "description": "Warm wrap filled with spinach, feta cheese, and scrambled egg.",
+    "category": "FOOD",
+    "images": ["https://via.placeholder.com/150?text=Spinach+Feta+Wrap"]
+  },
+  {
+    "name": "Chai Tea Latte",
+    "price": 4.60,
+    "description": "Spiced black tea infused with milk and a hint of vanilla.",
+    "category": "DRINK",
+    "images": ["https://via.placeholder.com/150?text=Chai+Tea+Latte"]
+  },
+  {
+    "name": "Almond Croissant",
+    "price": 3.90,
+    "description": "Flaky croissant filled and topped with almond paste and sliced almonds.",
+    "category": "FOOD",
+    "images": ["https://via.placeholder.com/150?text=Almond+Croissant"]
+  },
+  {
+    "name": "Flat White",
+    "price": 4.10,
+    "description": "Espresso with steamed milk for a rich and velvety finish.",
+    "category": "DRINK",
+    "images": ["https://via.placeholder.com/150?text=Flat+White"]
+  },
+  {
+    "name": "Egg & Cheese Muffin",
+    "price": 5.00,
+    "description": "English muffin with scrambled eggs and melted cheddar cheese.",
+    "category": "FOOD",
+    "images": ["https://via.placeholder.com/150?text=Egg+Cheese+Muffin"]
+  },
+  {
+    "name": "Iced Americano",
+    "price": 3.20,
+    "description": "Bold espresso poured over ice and topped with cold water.",
+    "category": "DRINK",
+    "images": ["https://via.placeholder.com/150?text=Iced+Americano"]
+  }
+]

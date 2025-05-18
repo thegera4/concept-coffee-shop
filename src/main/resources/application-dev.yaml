@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: concept-coffee-shop
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/coffee-shop
+    username: your-username
+    password: your-password
+  jpa:
+    database: POSTGRESQL
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+    hibernate:
+      #ddl-auto: create-drop # this recreates the database on each startup, not recommended for production
+      ddl-auto: update # create the tables if they don't exist automatically when the application starts
+    show-sql: true
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+springdoc:
+  swagger-ui:
+    path: /docs # the URL path to access the Swagger UI
+
+jwt:
+  secret: your-secret
