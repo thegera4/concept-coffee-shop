@@ -5,7 +5,6 @@ import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
-import jakarta.validation.constraints.Pattern
 
 data class ProductDTO (
     val id: Int? = null,
@@ -22,5 +21,11 @@ data class ProductDTO (
     val price: Double,
 
     @get:NotNull(message = "Product category cannot be null")
-    val category: ProductCategories
+    val category: ProductCategories,
+
+    var images: List<String>? = null,
+
+    var isBestSeller: Boolean = false,
+
+    var isRecommended: Boolean = false
 )

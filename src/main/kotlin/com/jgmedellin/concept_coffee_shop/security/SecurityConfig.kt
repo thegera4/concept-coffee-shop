@@ -28,12 +28,16 @@ class SecurityConfig (val jwtAuthenticationFilter: JwtAuthenticationFilter) {
                         AntPathRequestMatcher("/v3/api-docs/**")
                     ).permitAll()
                     .requestMatchers(
-                        AntPathRequestMatcher("/api/v1/users/getAll"),
-                        AntPathRequestMatcher("/api/v1/products/create"),
-                        AntPathRequestMatcher("/api/v1/products/getAll")
+                        AntPathRequestMatcher("/api/v1/products", "GET"),
+                    ).hasAnyRole("USER", "ADMIN", "SUPER")
+                    .requestMatchers(
+                        AntPathRequestMatcher("/api/v1/users", "GET"),
+                        AntPathRequestMatcher("/api/v1/products/*", "PATCH"),
+                        AntPathRequestMatcher("/api/v1/products", "POST"),
                     ).hasAnyRole("ADMIN", "SUPER")
                     .requestMatchers(
-                        AntPathRequestMatcher("/api/v1/users/changeRole")
+                        AntPathRequestMatcher("/api/v1/users/changeRole"),
+                        AntPathRequestMatcher("/api/v1/products/*", "DELETE"),
                     ).hasRole("SUPER")
                     .anyRequest().authenticated()
             }

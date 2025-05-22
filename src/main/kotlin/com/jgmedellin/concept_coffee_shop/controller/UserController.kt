@@ -44,7 +44,7 @@ class UserController(val userService: UserService) {
         ApiResponse(responseCode = "403", description = "Forbidden"),
         ApiResponse(responseCode = "500", description = "Internal Server Error")
     )
-    @GetMapping("/getAll")
+    @GetMapping()
     fun getAllUsers() : ResponseEntity<GeneralResponse> = userService.getAllUsers()
 
     @Operation(

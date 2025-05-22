@@ -10,11 +10,4 @@ interface ProductRepository : CrudRepository<Product, Int> {
      * @return true if a product with the given name exists, false otherwise.
      */
     fun existsByName(name: String): Boolean
-
-    /**
-     * Find a product by its name.
-     * @param name The name of the product to find.
-     * @return The product with the given name, or null if no such product exists.
-     */
-    fun findByName(name: String): Product?
 }

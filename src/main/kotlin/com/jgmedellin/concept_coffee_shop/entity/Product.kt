@@ -23,5 +23,11 @@ class Product (
     var category: ProductCategories,
 
     @Column(name = "images", nullable = true)
-    var images: List<String>? = emptyList()
+    var images: List<String>? = emptyList(),
+
+    @Column(name = "best_seller", nullable = false)
+    var isBestSeller: Boolean = false,
+
+    @Column(name = "recommended", nullable = false)
+    var isRecommended: Boolean = false,
 ) : BaseEntity()

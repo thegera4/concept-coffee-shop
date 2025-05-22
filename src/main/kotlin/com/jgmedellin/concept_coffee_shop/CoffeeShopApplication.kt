@@ -23,7 +23,7 @@ import org.springframework.boot.runApplication
 	),
 	externalDocs = ExternalDocumentation(
 		description = "Github Repository",
-		url = "https://www.github.com/jgmedellin/concept-coffee-shop-api",
+		url = "https://github.com/thegera4/concept-coffee-shop",
 	)
 )
 @SecurityScheme(name = "bearerAuth", type = SecuritySchemeType.HTTP, bearerFormat = "JWT", scheme = "bearer")

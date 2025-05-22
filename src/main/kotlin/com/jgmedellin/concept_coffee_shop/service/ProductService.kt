@@ -7,6 +7,7 @@ import com.jgmedellin.concept_coffee_shop.response.GeneralResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
 
 @Service
 class ProductService(val productRepository: ProductRepository) {
@@ -42,7 +43,7 @@ class ProductService(val productRepository: ProductRepository) {
         // Convert DTOs to entities
         val products = productsDTOs.map { productDTO ->
             Product(name = productDTO.name, description = productDTO.description, price = productDTO.price,
-                category = productDTO.category)
+                category = productDTO.category, images = productDTO.images)
         }
         return try {
             val createdProducts = productRepository.saveAll(products)
@@ -50,8 +51,9 @@ class ProductService(val productRepository: ProductRepository) {
                 GeneralResponse(201, "Products created successfully",
                     createdProducts.map {
                         mapOf(
-                            "id" to it.id, "name" to it.name, "price" to it.price,
-                            "category" to it.category, "description" to it.description
+                            "id" to it.id, "name" to it.name, "price" to it.price, "category" to it.category,
+                            "description" to it.description, "isBestSeller" to it.isBestSeller, "images" to it.images,
+                            "isRecommended" to it.isRecommended, "createdAt" to it.createdAt,
                         )
                     }
                 ),
@@ -76,8 +78,9 @@ class ProductService(val productRepository: ProductRepository) {
         return ResponseEntity(
             GeneralResponse(200, "Products retrieved successfully",
                 products.map {
-                    mapOf("id" to it.id, "name" to it.name, "price" to it.price,
-                        "category" to it.category, "description" to it.description
+                    mapOf("id" to it.id, "name" to it.name, "price" to it.price, "category" to it.category,
+                        "description" to it.description, "isBestSeller" to it.isBestSeller, "images" to it.images,
+                        "isRecommended" to it.isRecommended, "createdAt" to it.createdAt
                     )
                 }
             ),
@@ -99,8 +102,10 @@ class ProductService(val productRepository: ProductRepository) {
                 GeneralResponse(
                     200, "Product retrieved successfully",
                     mapOf(
-                        "name" to product.get().name, "price" to product.get().price,
-                        "category" to product.get().category, "description" to product.get().description
+                        "name" to product.get().name, "price" to product.get().price, "images" to product.get().images,
+                        "category" to product.get().category, "description" to product.get().description,
+                        "isBestSeller" to product.get().isBestSeller, "isRecommended" to product.get().isRecommended,
+                        "createdAt" to product.get().createdAt
                     )
                 ),
                 HttpStatus.OK
@@ -134,6 +139,44 @@ class ProductService(val productRepository: ProductRepository) {
                 HttpStatus.NOT_FOUND
             )
         }
+    }
+
+    /**
+     * Product service method to update a product by ID.
+     * @param id the ID of the product to update.
+     * @param productDTO the product data transfer object containing updated product details.
+     * @return GeneralResponse with the operation result
+     */
+    fun updateProduct(id: Int, productDTO: ProductDTO): ResponseEntity<GeneralResponse> {
+        // Check if the product exists in the database
+        val product = productRepository.findById(id)
+        // If the product exists, update it and return success response
+        return if (product.isPresent) {
+            val updatedProduct = product.get()
+            updatedProduct.description = productDTO.description
+            updatedProduct.price = productDTO.price
+            updatedProduct.updatedAt = LocalDateTime.now()
+            updatedProduct.images = productDTO.images
+            updatedProduct.isBestSeller = productDTO.isBestSeller
+            updatedProduct.isRecommended = productDTO.isRecommended
+            productRepository.save(updatedProduct)
+            ResponseEntity(
+                GeneralResponse(200, "Product updated successfully",
+                    mapOf(
+                        "description" to updatedProduct.description, "images" to updatedProduct.images,
+                        "price" to updatedProduct.price, "description" to updatedProduct.description,
+                        "isBestSeller" to updatedProduct.isBestSeller, "isRecommended" to updatedProduct.isRecommended
+                    )
+                ),
+                HttpStatus.OK
+            )
+        } else {
+            ResponseEntity(
+                GeneralResponse(404, "Product not found"),
+                HttpStatus.NOT_FOUND
+            )
+        }
+
     }
 
 }

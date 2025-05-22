@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -31,12 +32,13 @@ class ProductController(val productService: ProductService) {
         description = "Endpoint to create new products",
         security = [SecurityRequirement(name = "bearerAuth")] // adds security requirement for JWT authentication
         )
-    @ApiResponses(ApiResponse(responseCode = "201", description = "Product(s) created successfully"),
+    @ApiResponses(
+        ApiResponse(responseCode = "201", description = "Product(s) created successfully"),
         ApiResponse(responseCode = "400", description = "Bad Request"),
         ApiResponse(responseCode = "403", description = "Forbidden"),
         ApiResponse(responseCode = "500", description = "Internal Server Error")
     )
-    @PostMapping("/create")
+    @PostMapping()
     fun createProducts(@RequestBody @Valid productsDTOs: List<ProductDTO>) : ResponseEntity<GeneralResponse> =
         productService.createProducts(productsDTOs)
 
@@ -45,11 +47,12 @@ class ProductController(val productService: ProductService) {
         description = "Endpoint to get all products",
         security = [SecurityRequirement(name = "bearerAuth")] // adds security requirement for JWT authentication
     )
-    @ApiResponses(ApiResponse(responseCode = "200", description = "Users retrieved successfully"),
+    @ApiResponses(
+        ApiResponse(responseCode = "200", description = "Users retrieved successfully"),
         ApiResponse(responseCode = "403", description = "Forbidden"),
         ApiResponse(responseCode = "500", description = "Internal Server Error")
     )
-    @GetMapping("/getAll")
+    @GetMapping()
     fun getAllProducts() : ResponseEntity<GeneralResponse> = productService.getAllProducts()
 
     @Operation(
@@ -57,23 +60,39 @@ class ProductController(val productService: ProductService) {
         description = "Endpoint to get product details by ID",
         security = [SecurityRequirement(name = "bearerAuth")] // adds security requirement for JWT authentication
     )
-    @ApiResponses(ApiResponse(responseCode = "200", description = "Product retrieved successfully"),
+    @ApiResponses(
+        ApiResponse(responseCode = "200", description = "Product retrieved successfully"),
         ApiResponse(responseCode = "403", description = "Forbidden"),
         ApiResponse(responseCode = "500", description = "Internal Server Error")
     )
     @GetMapping("/{id}")
-    fun getProductById(@PathVariable id: Int) : ResponseEntity<GeneralResponse> = productService.getProductById(id)
+    fun getProductById(@PathVariable id: Int): ResponseEntity<GeneralResponse> = productService.getProductById(id)
 
     @Operation(
         summary = "Delete a product",
         description = "Endpoint to delete a product by ID",
         security = [SecurityRequirement(name = "bearerAuth")] // adds security requirement for JWT authentication
     )
-    @ApiResponses(ApiResponse(responseCode = "200", description = "Product deleted successfully"),
+    @ApiResponses(
+        ApiResponse(responseCode = "200", description = "Product deleted successfully"),
         ApiResponse(responseCode = "403", description = "Forbidden"),
         ApiResponse(responseCode = "500", description = "Internal Server Error")
     )
     @DeleteMapping("/{id}")
     fun deleteProduct(@PathVariable id: Int) : ResponseEntity<GeneralResponse> = productService.deleteProduct(id)
+
+    @Operation(
+        summary = "Update product details",
+        description = "Endpoint to update product details by ID",
+        security = [SecurityRequirement(name = "bearerAuth")] // adds security requirement for JWT authentication
+    )
+    @ApiResponses(
+        ApiResponse(responseCode = "200", description = "Product updated successfully"),
+        ApiResponse(responseCode = "403", description = "Forbidden"),
+        ApiResponse(responseCode = "500", description = "Internal Server Error")
+    )
+    @PatchMapping("/{id}")
+    fun updateProduct(@PathVariable id: Int, @RequestBody @Valid productDTO: ProductDTO) :
+            ResponseEntity<GeneralResponse> = productService.updateProduct(id, productDTO)
 
 }
