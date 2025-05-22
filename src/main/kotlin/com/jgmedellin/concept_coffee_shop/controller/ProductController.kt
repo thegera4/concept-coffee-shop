@@ -9,14 +9,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.tags.Tag
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.validation.Valid
-import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
+import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
 @Tag(name = "Products", description = "These endpoints allow you to Create, Read, Update and Delete products")
@@ -35,9 +34,8 @@ class ProductController(val productService: ProductService) {
         ApiResponse(responseCode = "403", description = "Forbidden"),
         ApiResponse(responseCode = "500", description = "Internal Server Error")
     )
-    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/create")
-    fun createProducts(@RequestBody @Valid productsDTOs: List<ProductDTO>) : GeneralResponse =
+    fun createProducts(@RequestBody @Valid productsDTOs: List<ProductDTO>) : ResponseEntity<GeneralResponse> =
         productService.createProducts(productsDTOs)
 
     @Operation(
@@ -49,8 +47,7 @@ class ProductController(val productService: ProductService) {
         ApiResponse(responseCode = "403", description = "Forbidden"),
         ApiResponse(responseCode = "500", description = "Internal Server Error")
     )
-    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/getAll")
-    fun getAllProducts() : GeneralResponse = productService.getAllProducts()
+    fun getAllProducts() : ResponseEntity<GeneralResponse> = productService.getAllProducts()
 
 }
