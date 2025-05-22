@@ -85,4 +85,55 @@ class ProductService(val productRepository: ProductRepository) {
         )
     }
 
+    /**
+     * Product service method to get a product by ID.
+     * @param id the ID of the product to retrieve.
+     * @return GeneralResponse with the operation result
+     */
+    fun getProductById(id: Int): ResponseEntity<GeneralResponse> {
+        // Check if the product exists in the database
+        val product = productRepository.findById(id)
+        // If the product exists, return success response with product details
+        return if (product.isPresent) {
+            ResponseEntity(
+                GeneralResponse(
+                    200, "Product retrieved successfully",
+                    mapOf(
+                        "name" to product.get().name, "price" to product.get().price,
+                        "category" to product.get().category, "description" to product.get().description
+                    )
+                ),
+                HttpStatus.OK
+            )
+        } else {
+            ResponseEntity(
+                GeneralResponse(404, "Product not found"),
+                HttpStatus.NOT_FOUND
+            )
+        }
+    }
+
+    /**
+     * Product service method to delete a product by ID.
+     * @param id the ID of the product to delete.
+     * @return GeneralResponse with the operation result
+     */
+    fun deleteProduct(id: Int): ResponseEntity<GeneralResponse> {
+        // Check if the product exists in the database
+        val product = productRepository.findById(id)
+        // If the product exists, delete it and return success response
+        return if (product.isPresent) {
+            productRepository.delete(product.get())
+            ResponseEntity(
+                GeneralResponse(200, "Product deleted successfully"),
+                HttpStatus.OK
+            )
+        } else {
+            ResponseEntity(
+                GeneralResponse(404, "Product not found"),
+                HttpStatus.NOT_FOUND
+            )
+        }
+    }
+
 }
