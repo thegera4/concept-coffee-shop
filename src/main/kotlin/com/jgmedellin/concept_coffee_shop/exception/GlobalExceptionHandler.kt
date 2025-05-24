@@ -1,7 +1,10 @@
 package com.jgmedellin.concept_coffee_shop.exception
 
 import com.jgmedellin.concept_coffee_shop.response.GeneralErrorResponse
+import com.jgmedellin.concept_coffee_shop.response.GeneralResponse
+import jakarta.validation.ConstraintViolationException
 import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
@@ -10,6 +13,17 @@ import java.time.LocalDateTime
 
 @RestControllerAdvice
 class GlobalExceptionHandler {
+
+    @ExceptionHandler(ConstraintViolationException::class)
+    fun handleConstraintViolationException(e: ConstraintViolationException): ResponseEntity<GeneralResponse> {
+        val errorMessage = e.constraintViolations.joinToString(", ") {
+            "${it.propertyPath}: ${it.message}"
+        }
+        return ResponseEntity(
+            GeneralResponse(400, errorMessage),
+            HttpStatus.BAD_REQUEST
+        )
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException::class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
