@@ -1,4 +1,4 @@
-package com.jgmedellin.concept_cofee_shop
+package com.jgmedellin.concept_cofee_shop.controller
 
 import com.jgmedellin.concept_coffee_shop.CoffeeShopApplication
 import com.jgmedellin.concept_coffee_shop.constants.UserRoles
@@ -13,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWeb
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.reactive.server.WebTestClient
+import kotlin.collections.get
 
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
@@ -24,8 +25,6 @@ class UserController {
 
     @Autowired
     lateinit var webTestClient: WebTestClient
-
-    //TODO: Improve the tests by preloading the database with test data, and creating a user to use in all tests.
 
     @Test
     fun registerUser() {

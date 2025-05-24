@@ -17,4 +17,10 @@ interface UserRepository : CrudRepository<User, Int> {
      * @return The user with the given email, or null if no such user exists.
      */
     fun findByEmail(email: String): User?
+
+    /**
+     * Delete a user by their email.
+     * @param email The email of the user to delete.
+     */
+    fun deleteByEmail(email: String)
 }
