@@ -27,7 +27,7 @@ import kotlin.collections.get
 )
 @ActiveProfiles("dev")
 @AutoConfigureWebTestClient
-class UserControllerTest {
+class UserControllerIntegrationTests {
 
     @Autowired
     lateinit var webTestClient: WebTestClient
