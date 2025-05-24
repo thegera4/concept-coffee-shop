@@ -19,7 +19,7 @@ class User (
     var password: String,
 
     @Column(name = "username", nullable = true, unique = true)
-    val username: String? = null,
+    var username: String? = null,
 
     @Column(name = "phone", nullable = true, unique = true)
     var phone: String? = null,
