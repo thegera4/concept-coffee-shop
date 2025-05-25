@@ -42,6 +42,9 @@ class SecurityConfig (val jwtAuthenticationFilter: JwtAuthenticationFilter) {
                         AntPathRequestMatcher("/api/v1/users/*", "DELETE"),
                         AntPathRequestMatcher("/api/v1/products/*", "DELETE"),
                     ).hasRole("SUPER")
+                    .requestMatchers(
+                        AntPathRequestMatcher("/api/v1/orders", "POST"),
+                    ).hasRole("USER")
                     .anyRequest().authenticated()
             }
             .sessionManagement { session ->

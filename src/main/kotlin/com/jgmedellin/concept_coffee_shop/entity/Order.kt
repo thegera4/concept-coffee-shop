@@ -18,7 +18,7 @@ import jakarta.persistence.FetchType
 class Order (
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    var id: String,
+    var id: String? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -38,4 +38,4 @@ class Order (
     @Column(name = "status", nullable = false)
     var status: OrderStatus = OrderStatus.PENDING,
 
-) : BaseEntity()
+    ) : BaseEntity()
