@@ -1,7 +1,12 @@
 package com.jgmedellin.concept_coffee_shop.entity
 
 import com.jgmedellin.concept_coffee_shop.constants.ProductCategories
-import jakarta.persistence.*
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.Table
+import jakarta.persistence.Column
 
 @Entity
 @Table(name = "products")
@@ -29,5 +34,6 @@ class Product (
     var isBestSeller: Boolean = false,
 
     @Column(name = "recommended", nullable = false)
-    var isRecommended: Boolean = false,
+    var isRecommended: Boolean = false
+
 ) : BaseEntity()

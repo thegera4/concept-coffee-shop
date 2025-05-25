@@ -3,15 +3,14 @@ package com.jgmedellin.concept_coffee_shop.controller
 import com.jgmedellin.concept_coffee_shop.CoffeeShopApplication
 import com.jgmedellin.concept_coffee_shop.constants.ProductCategories
 import com.jgmedellin.concept_coffee_shop.constants.UserRoles
-import com.jgmedellin.concept_coffee_shop.dto.NewRoleDTO
 import com.jgmedellin.concept_coffee_shop.dto.ProductDTO
-import com.jgmedellin.concept_coffee_shop.dto.UpdateUserDTO
 import com.jgmedellin.concept_coffee_shop.dto.UserDTO
 import com.jgmedellin.concept_coffee_shop.entity.Product
 import com.jgmedellin.concept_coffee_shop.entity.User
 import com.jgmedellin.concept_coffee_shop.repository.ProductRepository
 import com.jgmedellin.concept_coffee_shop.repository.UserRepository
 import com.jgmedellin.concept_coffee_shop.response.GeneralResponse
+import com.jgmedellin.concept_coffee_shop.util.PostgreSQLContainerInitializer
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
@@ -31,7 +30,7 @@ import kotlin.collections.get
 )
 @ActiveProfiles("dev")
 @AutoConfigureWebTestClient
-class ProductControllerIntegrationTests {
+class ProductControllerIntegrationTests : PostgreSQLContainerInitializer() {
 
     @Autowired
     lateinit var webTestClient: WebTestClient
@@ -133,11 +132,11 @@ class ProductControllerIntegrationTests {
     fun createProductsTest() {
         // Create a list of product DTOs to test
         val productsDTOs = listOf(
-            ProductDTO(name = "Espresso", price = 2.5, images = listOf("espresso.jpg"),
-                category = ProductCategories.DRINK, description = "Strong and bold coffee"),
+            ProductDTO(name = "Latte", price = 3.0, images = listOf("latte.jpg"),
+                category = ProductCategories.DRINK, description = "Rich and creamy coffee"),
             ProductDTO(
-                name = "Donut", price = 2.0, images = listOf("donut.jpg"), category = ProductCategories.FOOD,
-                description = "Creamy and smooth coffee")
+                name = "Crossaint", price = 2.5, images = listOf("crossaint.jpg"), category = ProductCategories.FOOD,
+                description = "Flaky and buttery pastry")
         )
 
         // Use admin token to create products
@@ -158,7 +157,7 @@ class ProductControllerIntegrationTests {
 
         // Verify products were saved in the database
         val productsInDb = productRepository.findAll()
-        Assertions.assertEquals(2, productsInDb.count())
+        Assertions.assertEquals(4, productsInDb.count())
     }
 
     @Test
@@ -174,7 +173,7 @@ class ProductControllerIntegrationTests {
         )
 
         // Attempt to create products without authorization
-        val createResponse = webTestClient.post()
+        webTestClient.post()
             .uri("/api/v1/products")
             .bodyValue(productsDTOs)
             .exchange()
@@ -267,7 +266,7 @@ class ProductControllerIntegrationTests {
         Assertions.assertEquals("Product deleted successfully", deleteProductResponse?.message)
 
         // Verify product was deleted from the database
-        val deletedProduct = productRepository.findById(productId?.toInt() ?: 1)
+        val deletedProduct = productRepository.findById(productId ?: 1)
         Assertions.assertFalse(deletedProduct.isPresent)
     }
 
@@ -278,7 +277,7 @@ class ProductControllerIntegrationTests {
         val productId = productRepository.findAll().first().id
 
         // Attempt to delete product without authorization
-        val deleteProductResponse = webTestClient.delete()
+        webTestClient.delete()
             .uri("/api/v1/products/$productId")
             .exchange()
             .expectStatus().isForbidden
@@ -314,7 +313,7 @@ class ProductControllerIntegrationTests {
         Assertions.assertEquals("Product updated successfully", updateProductResponse?.message)
 
         // Verify product was updated in the database
-        val updatedProduct = productRepository.findById(productId?.toInt() ?: 1)
+        val updatedProduct = productRepository.findById(productId ?: 1)
         Assertions.assertTrue(updatedProduct.isPresent)
         Assertions.assertEquals("Updated strong and bold coffee", updatedProduct.get().description)
     }
@@ -331,7 +330,7 @@ class ProductControllerIntegrationTests {
             description = "Updated strong and bold coffee")
 
         // Attempt to update product without authorization
-        val updateProductResponse = webTestClient.patch()
+        webTestClient.patch()
             .uri("/api/v1/products/$productId")
             .bodyValue(updatedProductDTO)
             .exchange()

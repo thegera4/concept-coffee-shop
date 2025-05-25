@@ -36,4 +36,8 @@ class User (
 
     @Column(name = "avatar", nullable = true)
     var avatar: String? = null,
+
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true, targetEntity = Order::class)
+    var orders: MutableList<Order> = mutableListOf()
+
 ) : BaseEntity()
