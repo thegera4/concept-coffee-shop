@@ -21,6 +21,7 @@ interface UserRepository : CrudRepository<User, Int> {
     /**
      * Delete a user by their email.
      * @param email The email of the user to delete.
+     * @return The number of rows affected by the delete operation.
      */
-    fun deleteByEmail(email: String)
+    fun deleteByEmail(email: String): Int
 }

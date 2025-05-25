@@ -8,6 +8,7 @@ import com.jgmedellin.concept_coffee_shop.dto.UserDTO
 import com.jgmedellin.concept_coffee_shop.entity.User
 import com.jgmedellin.concept_coffee_shop.repository.UserRepository
 import com.jgmedellin.concept_coffee_shop.response.GeneralResponse
+import com.jgmedellin.concept_coffee_shop.util.PostgreSQLContainerInitializer
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
@@ -27,7 +28,7 @@ import kotlin.collections.get
 )
 @ActiveProfiles("dev")
 @AutoConfigureWebTestClient
-class UserControllerIntegrationTests {
+class UserControllerIntegrationTests : PostgreSQLContainerInitializer() {
 
     @Autowired
     lateinit var webTestClient: WebTestClient
