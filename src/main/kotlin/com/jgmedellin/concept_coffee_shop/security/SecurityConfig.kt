@@ -31,6 +31,7 @@ class SecurityConfig (val jwtAuthenticationFilter: JwtAuthenticationFilter) {
                         AntPathRequestMatcher("/api/v1/users/*", "PUT"),
                         AntPathRequestMatcher("/api/v1/products", "GET"),
                         AntPathRequestMatcher("/api/v1/orders/history", "GET"),
+                        AntPathRequestMatcher("/api/v1/orders/*", "GET"),
                     ).hasAnyRole("USER", "ADMIN", "SUPER")
                     .requestMatchers(
                         AntPathRequestMatcher("/api/v1/users/*", "GET"),

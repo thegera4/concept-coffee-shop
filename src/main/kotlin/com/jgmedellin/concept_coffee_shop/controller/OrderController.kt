@@ -75,6 +75,20 @@ class OrderController(val orderService: OrderService) {
             ResponseEntity<GeneralResponse> = orderService.getAllOrders(size, email)
 
     @Operation(
+        summary = "Get one order",
+        description = "Endpoint to retrieve a single order by its ID.",
+        security = [SecurityRequirement(name = "bearerAuth")] // adds security requirement for JWT authentication
+    )
+    @ApiResponses(
+        ApiResponse(responseCode = "200", description = "Orders retrieved successfully"),
+        ApiResponse(responseCode = "403", description = "Forbidden"),
+        ApiResponse(responseCode = "404", description = "Not Found"),
+        ApiResponse(responseCode = "500", description = "Internal Server Error")
+    )
+    @GetMapping("/{id}")
+    fun getOrder(@PathVariable id: String): ResponseEntity<GeneralResponse> = orderService.getOrder(id)
+
+    @Operation(
         summary = "Delete an order",
         description = "Endpoint to delete an order by its ID",
         security = [SecurityRequirement(name = "bearerAuth")] // adds security requirement for JWT authentication

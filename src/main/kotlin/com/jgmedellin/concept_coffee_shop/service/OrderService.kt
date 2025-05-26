@@ -1,5 +1,6 @@
 package com.jgmedellin.concept_coffee_shop.service
 
+import com.jgmedellin.concept_coffee_shop.constants.UserRoles
 import com.jgmedellin.concept_coffee_shop.dto.OrderDTO
 import com.jgmedellin.concept_coffee_shop.dto.UpdateOrderDTO
 import com.jgmedellin.concept_coffee_shop.entity.Order
@@ -13,8 +14,11 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 
 @Service
-class OrderService(val orderRepository: OrderRepository, val userRepository: UserRepository,
-                   val productRepository: ProductRepository) {
+class OrderService(
+    val orderRepository: OrderRepository,
+    val userRepository: UserRepository,
+    val productRepository: ProductRepository
+) {
     /**
      * Order service method to create a new order.
      * @param orderDTO The order data transfer object containing order details.
@@ -126,6 +130,50 @@ class OrderService(val orderRepository: OrderRepository, val userRepository: Use
         return ResponseEntity(
             GeneralResponse(200, "Orders retrieved successfully",
                 mapOf("orders" to orderList)),
+            HttpStatus.OK
+        )
+    }
+
+    /**
+     * Order service method to retrieve a single order by its ID.
+     * @param id The ID of the order to be retrieved.
+     * @return ResponseEntity with the order details.
+     */
+    fun getOrder(id: String): ResponseEntity<GeneralResponse> {
+        // Check if the current user is authenticated
+        val userEmail = "${SecurityContextHolder.getContext().authentication.name}"
+        val user = userRepository.findByEmail(userEmail)
+            ?: return ResponseEntity(
+                GeneralResponse(404, "User with email $userEmail not found"),
+                HttpStatus.NOT_FOUND
+            )
+        val isAdmin = user.role == UserRoles.ADMIN || user.role == UserRoles.SUPER
+        // If the user is not an admin or super, check if the order belongs to the user
+        if (!isAdmin) {
+            val order = orderRepository.findById(id).orElse(null)
+            if (order == null || order.user.email != userEmail) {
+                return ResponseEntity(
+                    GeneralResponse(403, "You do not have permission to access this order"),
+                    HttpStatus.FORBIDDEN
+                )
+            }
+        }
+        // If the user is an admin or super, they can access any order
+        val order = orderRepository.findById(id).orElse(null)
+        if (order == null) {
+            return ResponseEntity(
+                GeneralResponse(404, "Order with ID $id not found"),
+                HttpStatus.NOT_FOUND
+            )
+        }
+        // Map order to a response format
+        val orderDetails = mapOf("orderId" to order.id, "customerEmail" to order.user.email,
+            "products" to order.products.map { it.name }, "totalAmount" to order.totalAmount,
+            "status" to order.status.name
+        )
+
+        return ResponseEntity(
+            GeneralResponse(200, "Order retrieved successfully", orderDetails),
             HttpStatus.OK
         )
     }
