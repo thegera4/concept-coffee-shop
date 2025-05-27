@@ -3,9 +3,9 @@ spring:
     name: concept-coffee-shop
   datasource:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/coffee-shop
-    username: your-username
-    password: your-password
+    url: jdbc:postgresql:${PROD_DB_HOST}:${PROD_DB_PORT}/${PROD_DB_NAME}
+    username: ${PROD_DB_USERNAME}
+    password: ${PROD_DB_PASSWORD}
   jpa:
     database: POSTGRESQL
     database-platform: org.hibernate.dialect.PostgreSQLDialect
@@ -25,4 +25,4 @@ springdoc:
     path: /docs # the URL path to access the Swagger UI
 
 jwt:
-  secret: your-secret
+  secret: ${JWT_SECRET}

@@ -18,6 +18,7 @@ class SecurityConfig (val jwtAuthenticationFilter: JwtAuthenticationFilter) {
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
+            .cors { it.disable() }
             .csrf { it.disable() }
             .authorizeHttpRequests { auth ->
                 auth
@@ -42,7 +43,7 @@ class SecurityConfig (val jwtAuthenticationFilter: JwtAuthenticationFilter) {
                         AntPathRequestMatcher("/api/v1/orders/*", "PATCH"),
                     ).hasAnyRole("ADMIN", "SUPER")
                     .requestMatchers(
-                        AntPathRequestMatcher("/api/v1/users/changeRole", "PATCH"),
+                        AntPathRequestMatcher("/api/v1/users/changeRole","PATCH"),
                         AntPathRequestMatcher("/api/v1/users/*", "DELETE"),
                         AntPathRequestMatcher("/api/v1/products/*", "DELETE"),
                         AntPathRequestMatcher("/api/v1/orders/*", "DELETE"),
