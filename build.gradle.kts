@@ -1,9 +1,9 @@
 plugins {
-	kotlin("jvm") version "1.9.25"
-	kotlin("plugin.spring") version "1.9.25"
-	id("org.springframework.boot") version "3.4.5"
-	id("io.spring.dependency-management") version "1.1.7"
-	kotlin("plugin.jpa") version "1.9.25"
+	kotlin("jvm") version "1.9.22"
+	kotlin("plugin.spring") version "1.9.22"
+	id("org.springframework.boot") version "3.2.2"
+	id("io.spring.dependency-management") version "1.1.4"
+	kotlin("plugin.jpa") version "1.9.22"
 }
 
 group = "com.jgmedellin"
@@ -49,7 +49,7 @@ dependencies {
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	runtimeOnly("org.postgresql:postgresql")
 	// Swagger Documentation
-	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.8")
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
 	// Logging
 	implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
 }
@@ -66,6 +66,7 @@ allOpen {
 	annotation("jakarta.persistence.Embeddable")
 }
 
+
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
@@ -73,7 +74,9 @@ tasks.withType<Test> {
 sourceSets {
 	test {
 		java {
-			setSrcDirs(listOf("src/test/intg", "src/test/unit"))
+			//setSrcDirs(listOf("src/test/intg", "src/test/unit"))
+			srcDir("src/test/intg")
+			srcDir("src/test/unit")
 		}
 	}
 }
