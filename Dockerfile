@@ -12,4 +12,4 @@ RUN cat jarfile.txt
 ENV PORT=8080
 EXPOSE ${PORT}
 
-CMD ["java", "-Dspring.profiles.active=prod", "-jar", "$(cat jarfile.txt)"]
+CMD java -Dspring.profiles.active=prod -jar $(cat jarfile.txt)
