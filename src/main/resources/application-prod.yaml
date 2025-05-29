@@ -1,3 +1,5 @@
+server:
+  port: ${PROD_API_PORT}
 spring:
   application:
     name: concept-coffee-shop
