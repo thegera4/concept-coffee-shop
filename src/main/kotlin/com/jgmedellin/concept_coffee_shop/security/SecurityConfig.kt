@@ -67,13 +67,14 @@ class SecurityConfig (val jwtAuthenticationFilter: JwtAuthenticationFilter) {
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
         val configuration = CorsConfiguration()
-        configuration.allowedOrigins = listOf("https://concept-coffee-shop-production.up.railway.app",
+        /*configuration.allowedOrigins = listOf("https://concept-coffee-shop-production.up.railway.app",
             "http://concept-coffee-shop-production.up.railway.app", "http://localhost", "https://railway.app",
             "http://railway.app", "http://localhost:8080",
-        )
+        )*/
+        configuration.allowedOrigins = listOf("*")
         configuration.allowedMethods = listOf("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
         configuration.allowedHeaders = listOf("Authorization", "Content-Type", "X-Requested-With", "Accept")
-        configuration.allowCredentials = true
+        configuration.allowCredentials = false
         val source = UrlBasedCorsConfigurationSource()
         source.registerCorsConfiguration("/**", configuration)
         return source
