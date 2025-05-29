@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.enums.SecuritySchemeType
 import io.swagger.v3.oas.annotations.info.Contact
 import io.swagger.v3.oas.annotations.info.Info
 import io.swagger.v3.oas.annotations.security.SecurityScheme
+import io.swagger.v3.oas.annotations.servers.Server
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
@@ -24,7 +25,9 @@ import org.springframework.boot.runApplication
 	externalDocs = ExternalDocumentation(
 		description = "Github Repository",
 		url = "https://github.com/thegera4/concept-coffee-shop",
-	)
+	),
+	servers = [Server(url = "https://concept-coffee-shop-production.up.railway.app"),
+		Server(url = "https://railway.app")],
 )
 @SecurityScheme(name = "bearerAuth", type = SecuritySchemeType.HTTP, bearerFormat = "JWT", scheme = "bearer")
 class CoffeeShopApplication
