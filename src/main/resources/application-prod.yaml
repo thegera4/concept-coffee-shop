@@ -18,6 +18,10 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
+  security:
+    user:
+      name: none
+      password: none
 
 springdoc:
   swagger-ui:
