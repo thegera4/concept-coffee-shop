@@ -1,5 +1,5 @@
 server:
-  port: ${PROD_API_PORT}
+  port: ${PORT:8080}
 spring:
   application:
     name: concept-coffee-shop
