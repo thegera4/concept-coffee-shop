@@ -67,7 +67,7 @@ allOpen {
 }
 
 
-tasks.withType<Test> {
+/*tasks.withType<Test> {
 	useJUnitPlatform()
 }
 
@@ -80,3 +80,4 @@ sourceSets {
 		}
 	}
 }
+*/

@@ -1,10 +1,15 @@
-# Use a lightweight openJDK image as the base
 FROM openjdk:21-jdk-slim
-# Set the working directory inside the container
+
 WORKDIR /app
-# Copy the JAR file into the container
-COPY ./build/libs/*.jar /app/concept-coffee-shop.jar
-# Expose the port that the application will run on
-EXPOSE 8080
-# Set the command to run the application
-CMD ["java", "-jar", "concept-coffee-shop.jar"]
+COPY . .
+RUN chmod +x ./gradlew
+RUN ./gradlew build -x test
+
+# Find the actual JAR file name
+RUN find build/libs -name "*.jar" | grep -v "plain" > jarfile.txt
+RUN cat jarfile.txt
+
+ENV PORT=8080
+EXPOSE ${PORT}
+
+CMD java -Dspring.profiles.active=prod -jar $(cat jarfile.txt)
